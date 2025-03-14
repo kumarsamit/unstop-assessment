@@ -1,41 +1,56 @@
 <div class="grid grid-cols-5 gap-4">
-    <div class="col-span-3 bg-white shadow p-3 rounded-md">
-        <div class="flex items-center justify-between gap-4 mb-3">
-            <p class="text-base font-semibold text-[#383838s]">Users List</p>
-            <div class="flex items-center gap-4">
-                <div class="flex items-center px-2 gap-2 border border-[#d7d7d7] rounded-md h-[35px]">
-                    <img class="w-5" src="./assets/images/search.svg" alt="">
-                    <input type="text" class="outline-none h-[33px] rounded-md w-[200px]" #search
-                        (input)="searchUsers(search.value)" placeholder="Search by name">
+    <div class="col-span-3">
+        <div class="bg-white shadow p-3 rounded-md">
+            <div class="flex items-center justify-between gap-4 mb-3">
+                <p class="text-base font-semibold text-[#383838s]">Users List</p>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center px-2 gap-2 border border-[#d7d7d7] rounded-md h-[35px]">
+                        <img class="w-5" src="./assets/images/search.svg" alt="">
+                        <input type="text" class="outline-none h-[33px] rounded-md w-[200px]" #search
+                            (input)="searchUsers(search.value)" placeholder="Search by name">
+                    </div>
+                    <a (click)="addUserPopup()"
+                        class="rounded text-white bg-[#1c4980] h-[35px] flex items-center px-4 text-sm cursor-pointer">Add
+                        User</a>
                 </div>
-                <a (click)="addUserPopup()" class="rounded text-white bg-[#1c4980] h-[35px] flex items-center px-4 text-sm cursor-pointer">Add User</a>
+            </div>
+            <div class="border border-[#d7d7d7] overflow-hidden rounded-md">
+                <table mat-table [dataSource]="filteredUsersList" class="border" *ngIf="!loader">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef> Email </th>
+                        <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="role">
+                        <th mat-header-cell *matHeaderCellDef> Role </th>
+                        <td mat-cell *matCellDef="let user"> {{user.role}} </td>
+                    </ng-container>
+                    <thead>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    </thead>
+                    <tbody>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </tbody>
+                </table>
+                <div class="h-[150px] flex items-center justify-center text-[#383838]"
+                    *ngIf="filteredUsersList.length === 0">
+                    No Data Available
+                </div>
+                <div *ngIf="loader"
+                    class="h-[250px] flex items-center justify-center flex-col gap-2 text-sm text-[#383838]">
+                    <mat-spinner [diameter]="20"></mat-spinner>
+                    Please wait...
+                </div>
             </div>
         </div>
-        <div class="border border-[#d7d7d7] overflow-hidden rounded-md">
-            <table mat-table [dataSource]="filteredUsersList" class="border">
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Name </th>
-                    <td mat-cell *matCellDef="let user"> {{ user.name }} </td>
-                </ng-container>
-                <ng-container matColumnDef="email">
-                    <th mat-header-cell *matHeaderCellDef> Email </th>
-                    <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
-                </ng-container>
-                <ng-container matColumnDef="role">
-                    <th mat-header-cell *matHeaderCellDef> Role </th>
-                    <td mat-cell *matCellDef="let user"> {{ user.role }} </td>
-                </ng-container>
-                <thead>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                </thead>
-                <tbody>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </tbody>
-            </table>
-            <div class="h-[150px] flex items-center justify-center text-[#383838]"
-                *ngIf="filteredUsersList.length === 0">
-                No Data Available
-            </div>
-        </div>
+    </div>
+
+    <div class="col-span-2 bg-white shadow p-3 rounded-md">
+        <canvas baseChart *ngIf="pieChartData && pieChartOptions" [data]="pieChartData" [options]="pieChartOptions"
+            type="pie">
+        </canvas>
     </div>
 </div>

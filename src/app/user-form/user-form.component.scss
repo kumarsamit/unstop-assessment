@@ -23,3 +23,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+:host ::ng-deep .mat-mdc-dialog-content{
+    padding-bottom: 5px;
+}
