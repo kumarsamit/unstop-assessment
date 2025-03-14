@@ -31,3 +31,29 @@
   
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+ // mat form
+ .mat-mdc-form-field-infix{
+  padding-top: 12px !important;
+  padding-bottom: 11px !important;
+  min-height: 48px;
+  font-size: 14px !important;
+}
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused
+  .mdc-notched-outline__leading,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused
+  .mdc-notched-outline__notch,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused
+  .mdc-notched-outline__trailing {
+  border-color: #26355D !important;
+}
+
+.mat-mdc-form-field-hint-wrapper, 
+.mat-mdc-form-field-error-wrapper {
+  padding: 0 !important;
+  font-size: 10px;
+  line-height: 1.1;
+  margin-top: -4px !important;
+}

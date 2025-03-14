@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-user-dashboard',
@@ -15,26 +17,34 @@ export class UserDashboardComponent {
     { name: 'Ava Lewis', email: 'ava@gmail.com', role: 'Manager' },
     { name: 'Michael Hall', email: 'michael@gmail.com', role: 'User' }
   ];
-  
+
   filteredUsersList = [...this.usersList];
-  
-
-  constructor() {
 
 
-  }
+  constructor(private _dialog: MatDialog) { }
 
   searchUsers(event: string) {
     if (!event.trim()) {
-      this.filteredUsersList = [...this.usersList]; // Reset if input is empty
+      this.filteredUsersList = [...this.usersList];
       return;
     }
-  
     this.filteredUsersList = this.usersList.filter(user =>
       user.name.toLowerCase().includes(event.trim().toLowerCase())
     );
   }
-  
+
+  async addUserPopup() {
+    const module = await import('../user-form/user-form.component');
+    const userFormComponent = module.UserFormComponent;
+    this._dialog.open(userFormComponent, {
+      width :'500px',
+      data:'',
+    });
+  }
+
+
+
+
 
 
 }

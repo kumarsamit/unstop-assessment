@@ -1,1 +1,55 @@
-<p>user-form works!</p>
+<div mat-dialog-title class="flex">
+    <h2 class="text-base">Add User</h2>
+    <a (click)="closePopup()"
+        class="flex items-center justify-center w-6 h-6 bg-[#f1f1f1] font-light leading-none rounded cursor-pointer">x</a>
+</div>
+<form [formGroup]="userFormGroup" (ngSubmit)="createUser()" class="w-full">
+    <div mat-dialog-content>
+        <div>
+            <mat-label class="text-sm text-[#383838]">Name <span class="text-red-500">*</span></mat-label>
+            <mat-form-field class="w-full mb-1" appearance="outline">
+                <input matInput formControlName="name" type="text" textOnly>
+                <mat-error *ngIf="userFormGroup.controls['name'].hasError('required')">
+                    This is required field
+                </mat-error>
+                <mat-error *ngIf="userFormGroup.controls['name'].hasError('pattern')">
+                    Enter valid name
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-label class="text-sm text-[#383838]">Email <span class="text-red-500">*</span></mat-label>
+            <mat-form-field class="w-full mb-1" appearance="outline">
+                <input matInput formControlName="email" type="text" textOnly>
+                <mat-error *ngIf="userFormGroup.controls['email'].hasError('required')">
+                    This is required field
+                </mat-error>
+                <mat-error *ngIf="userFormGroup.controls['email'].hasError('email')">
+                    Enter valid email
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-label class="text-sm text-[#383838]">Role <span class="text-red-500">*</span></mat-label>
+            <mat-form-field class="w-full mb-1" appearance="outline">
+                <mat-select formControlName="role">
+                    <mat-option [value]="'Admin'">Admin</mat-option>
+                    <mat-option [value]="'Editor'">Editor</mat-option>
+                    <mat-option [value]="'Viewer'">Viewer</mat-option>
+                </mat-select>
+                <mat-error *ngIf="userFormGroup.controls['role'].hasError('required')">
+                    This is required field
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button type="button" class="rounded px-8 leading-none py-3 bg-[#e8e8e8] text-sm" (click)="closePopup()">
+            Cancel
+        </button>
+        <button type="submit"
+            class="rounded px-8 leading-none py-3 text-white bg-[#1c4980] text-sm flex gap-4 items-center">
+            Create
+        </button>
+    </div>
+</form>

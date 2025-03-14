@@ -8,7 +8,7 @@
                     <input type="text" class="outline-none h-[33px] rounded-md w-[200px]" #search
                         (input)="searchUsers(search.value)" placeholder="Search by name">
                 </div>
-                <a class="rounded text-white bg-[#1c4980] h-[35px] flex items-center px-4 text-sm cursor-pointer">Add User</a>
+                <a (click)="addUserPopup()" class="rounded text-white bg-[#1c4980] h-[35px] flex items-center px-4 text-sm cursor-pointer">Add User</a>
             </div>
         </div>
         <div class="border border-[#d7d7d7] overflow-hidden rounded-md">
